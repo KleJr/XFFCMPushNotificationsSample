@@ -1,41 +1,42 @@
 {
   "project_info": {
-    "project_number": "336461978699",
-    "project_id": "pushnotificationssample-987fb",
-    "storage_bucket": "pushnotificationssample-987fb.appspot.com"
+    "project_number": "744114421864",
+    "project_id": "pushnotification-41c8f",
+    "storage_bucket": "pushnotification-41c8f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:336461978699:android:935897b2323a4cd41c01ce",
+        "mobilesdk_app_id": "1:744114421864:android:1b593f180ec2bd57063bdd",
         "android_client_info": {
-          "package_name": "nl.versluis.pushnotificationssample"
+          "package_name": "com.berti3.pushnotification"
         }
       },
       "oauth_client": [
         {
-          "client_id": "336461978699-2sdqit6i7l09s6apmf64gkcq3a4q5pvj.apps.googleusercontent.com",
+          "client_id": "744114421864-kaqa0jds0hq0pm7bkgp0qk79k833a1a1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.berti3.pushnotification",
+            "certificate_hash": "1a7276fc79f5ff70e56a522b04890ab21a7354f1"
+          }
+        },
+        {
+          "client_id": "744114421864-tq1kj7r3jqtlchf8qm2rhf6ld4e5agts.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC-5BxqY4dWKEkqBo7H1fXBYKxO5jXjrfk"
+          "current_key": "AIzaSyCu-0pQoLFve2NOfhGKFDa3MWRCSm_ObcQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "336461978699-2sdqit6i7l09s6apmf64gkcq3a4q5pvj.apps.googleusercontent.com",
+              "client_id": "744114421864-tq1kj7r3jqtlchf8qm2rhf6ld4e5agts.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "336461978699-134319pj7e3fk5ojrg1vvaito3dmfkd0.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "nl.versluis.PushNotificationsSample"
-              }
             }
           ]
         }

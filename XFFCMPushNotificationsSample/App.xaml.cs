@@ -14,7 +14,9 @@ namespace XFFCMPushNotificationsSample
             MainPage = new MainPage();
 
             CrossFirebasePushNotification.Current.Subscribe("all");
-            CrossFirebasePushNotification.Current.OnTokenRefresh += Current_OnTokenRefresh;
+           // CrossFirebasePushNotification.Current.OnTokenRefresh += Current_OnTokenRefresh;
+           
+
         }
 
         private void Current_OnTokenRefresh(object source, FirebasePushNotificationTokenEventArgs e)
@@ -24,6 +26,7 @@ namespace XFFCMPushNotificationsSample
 
         protected override void OnStart()
         {
+            CrossFirebasePushNotification.Current.OnTokenRefresh += Current_OnTokenRefresh;
         }
 
         protected override void OnSleep()
@@ -32,6 +35,7 @@ namespace XFFCMPushNotificationsSample
 
         protected override void OnResume()
         {
+            CrossFirebasePushNotification.Current.OnTokenRefresh += Current_OnTokenRefresh;
         }
     }
 }
