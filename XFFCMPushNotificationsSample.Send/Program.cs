@@ -18,7 +18,7 @@ namespace XFFCMPushNotificationsSample.Send
                 Credential = GoogleCredential.FromFile("private_key.json")
             });
             // This registration token comes from the client FCM SDKs.
-            var registrationToken = "c8Y-_jR-T5q_s7hzs1bPz1:APA91bEyT3CmjfpH2TkfWHzU0-dRirFMcDm6P2tBCskMSgf2OHfkxP4LP-hH4Bb_AASc0F12PRitwnWQipuP3OlgdXFXqlcvNVnWo2dYnSE80lNYNLhdy1_YR4IO98WxFa70n7d8RB_l";
+            var registrationToken = "e68UzY__Rj-EpYahqX2efU:APA91bEaJ9s3pdu6nVyZzFapqrt1OnVG8QwzsGdScecUxO_xYzN237tGYRS2NH3aoqoAVTjYjjYPdxbZ_fWo-D0n07mir-9_6D4wofMQ4aFH1Ho1RZup5WP8VxXm-uE12gZ3QroX2nt8";
 
 
             // See documentation on defining a message payload.

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Android.App;
 using Android.OS;
 using Android.Runtime;
@@ -30,15 +31,55 @@ namespace XFFCMPushNotificationsSample.Droid
                 FirebasePushNotificationManager.DefaultNotificationChannelImportance = NotificationImportance.Max;
             }
 
-            //If debug you should reset the token each time.
-            #if DEBUG
-                        FirebasePushNotificationManager.Initialize(this, false);
-            #else
-                        FirebasePushNotificationManager.Initialize(this, false);
-            #endif
+#if DEBUG
+            FirebasePushNotificationManager.Initialize(this,
+                          new NotificationUserCategory[]
+                          {
+                    new NotificationUserCategory("message",new List<NotificationUserAction> {
+                        new NotificationUserAction("Reply","Reply", NotificationActionType.Foreground),
+                        new NotificationUserAction("Forward","Forward", NotificationActionType.Foreground)
+
+                    }),
+                    new NotificationUserCategory("request",new List<NotificationUserAction> {
+                    new NotificationUserAction("Accept","Accept", NotificationActionType.Default, "check"),
+                    new NotificationUserAction("Reject","Reject", NotificationActionType.Default, "cancel")
+                    })
+                          }, true);
+#else
+                        FirebasePushNotificationManager.Initialize(this,
+                new NotificationUserCategory[]
+                {
+                    new NotificationUserCategory("message",new List<NotificationUserAction> {
+                        new NotificationUserAction("Reply","Reply", NotificationActionType.Foreground),
+                        new NotificationUserAction("Forward","Forward", NotificationActionType.Foreground)
+
+                    }),
+                    new NotificationUserCategory("request",new List<NotificationUserAction> {
+                    new NotificationUserAction("Accept","Accept", NotificationActionType.Default, "check"),
+                    new NotificationUserAction("Reject","Reject", NotificationActionType.Default, "cancel")
+                    })
+                }, false);
+#endif
 
             //Handle notification when app is closed here
             CrossFirebasePushNotification.Current.OnNotificationReceived += Current_OnNotificationReceived_Android;
+
+            CrossFirebasePushNotification.Current.OnNotificationAction += (s, p) =>
+            {
+                System.Diagnostics.Debug.WriteLine("Notification action tapped");
+
+
+                if (!string.IsNullOrEmpty(p.Identifier))
+                {
+                    System.Diagnostics.Debug.WriteLine($"ActionId: {p.Identifier}");
+                }
+
+                foreach (var data in p.Data)
+                {
+                    System.Diagnostics.Debug.WriteLine($"{data.Key} : {data.Value}");
+                }
+
+            };
         }
         async void Current_OnNotificationReceived_Android(object source, FirebasePushNotificationDataEventArgs e)
         {

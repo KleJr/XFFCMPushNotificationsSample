@@ -32,6 +32,7 @@ namespace XFFCMPushNotificationsSample
 
         protected override void OnStart()
         {
+            System.Diagnostics.Debug.WriteLine($"Token: {CrossFirebasePushNotification.Current.Token}");
             CrossFirebasePushNotification.Current.OnTokenRefresh += Current_OnTokenRefresh;
 
           
