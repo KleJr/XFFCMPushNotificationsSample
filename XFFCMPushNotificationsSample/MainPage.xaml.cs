@@ -1,29 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Plugin.FirebasePushNotification;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+using XFFCMPushNotificationsSample.ViewModels;
 
 namespace XFFCMPushNotificationsSample
 {
-    public partial class MainPage : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class MainPage : ContentPage 
     {
+     
         public MainPage()
         {
             InitializeComponent();
+      
 
-            if (Device.RuntimePlatform == Device.iOS)
+            BindingContext = MainViewModel.TextTest ;
+
+            if (Device.RuntimePlatform == Device.iOS || Device.RuntimePlatform == Device.Android)
             {
                 CrossFirebasePushNotification.Current.OnNotificationReceived += Current_OnNotificationReceived;
-            }
+            }   
         }
 
-        private void Current_OnNotificationReceived(object source, FirebasePushNotificationDataEventArgs e)
+        async void Current_OnNotificationReceived(object source, FirebasePushNotificationDataEventArgs e)
         {
-            DisplayAlert("Notification", $"Data: {e.Data["myData"]}", "OK");
+           string body = "";
+            string title = "";
+            foreach (var data in e.Data)
+            {
+
+                if (data.Key == "title")
+                {
+                    title = data.Value.ToString();
+                }
+                if (data.Key == "body")
+                {
+                    body = data.Value.ToString();
+                }
+
+                System.Diagnostics.Debug.WriteLine($" {data.Key} : {data.Value}");
+            }
+            Device.BeginInvokeOnMainThread(async () => {
+                bool answer = await App.Current.MainPage.DisplayAlert($"{title}", $"{body}", "Aceitar", "Não Posso");
+                System.Diagnostics.Debug.WriteLine("Answer: " + answer);
+            });
+
         }
+
+
     }
 }

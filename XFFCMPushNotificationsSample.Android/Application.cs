@@ -3,17 +3,18 @@ using Android.App;
 using Android.OS;
 using Android.Runtime;
 using Plugin.FirebasePushNotification;
+using Xamarin.Forms;
 
 namespace XFFCMPushNotificationsSample.Droid
 {
     [Application]
-    public class MainApplication : Application
+    public class MainApplication : Android.App.Application
     {
         public MainApplication(IntPtr handle, JniHandleOwnership transer) : base(handle, transer)
         {
         }
 
-        public override void OnCreate()
+        public async override void OnCreate()
         {
             base.OnCreate();
 
@@ -31,20 +32,37 @@ namespace XFFCMPushNotificationsSample.Droid
 
             //If debug you should reset the token each time.
             #if DEBUG
-                        FirebasePushNotificationManager.Initialize(this, true);
+                        FirebasePushNotificationManager.Initialize(this, false);
             #else
                         FirebasePushNotificationManager.Initialize(this, false);
             #endif
 
             //Handle notification when app is closed here
-            CrossFirebasePushNotification.Current.OnNotificationReceived += (s, p) =>
-            {
-
-                foreach (var data in p.Data)
-                {
-                    System.Diagnostics.Debug.WriteLine($"{data.Key} : {data.Value}");
-                }
-            };
+            CrossFirebasePushNotification.Current.OnNotificationReceived += Current_OnNotificationReceived_Android;
         }
+        async void Current_OnNotificationReceived_Android(object source, FirebasePushNotificationDataEventArgs e)
+        {
+            string body = "";
+            string title = "";
+            foreach (var data in e.Data)
+            { 
+              
+                if (data.Key == "title")
+                {
+                    title = data.Value.ToString();
+                }if (data.Key == "body")
+                {
+                    body = data.Value.ToString();
+                }
+                  
+                System.Diagnostics.Debug.WriteLine($" {data.Key} : {data.Value}");
+            }
+            Device.BeginInvokeOnMainThread(async () => {
+                bool answer = await App.Current.MainPage.DisplayAlert($"{title}", $"{body}", "Aceitar", "Não Posso");
+                System.Diagnostics.Debug.WriteLine("Answer: " + answer);
+            });
+            
+        }
+
     }
 }
